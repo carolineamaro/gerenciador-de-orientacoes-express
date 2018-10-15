@@ -1,0 +1,8 @@
+<!-- mostrando mensagem de alerta em tela/ partial- codigos que serao usados mais de uma vez em views -->
+{% for message in flashSuccess %}
+  <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+
+{% for message in flashError %}
+  <div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
