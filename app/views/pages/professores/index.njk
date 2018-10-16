@@ -1,0 +1,31 @@
+
+{% extends 'layouts/default.njk' %}
+{% block body %}
+<div class="starter-template">
+
+   {% include 'partials/flash.njk' %}
+    <a class="btn btn-primary" style="float: right; margin-bottom: 10px" href="/app/professores/create" role="button">Adicionar Professor</a>
+    <h4>Lista de professores</h4>
+    <hr />
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th width="20">ID</th>
+                <th scope="col">Nome</th>
+                <th width="100">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+           {% for professor in professores %}
+            <tr>
+                <th scope="row">{{professor._id}}</th>
+                <td>{{professor.nome}}</td>
+                <td>
+                    <a class="btn btn-danger" href="/app/professores/delete/{{professor._id}}" role="button">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

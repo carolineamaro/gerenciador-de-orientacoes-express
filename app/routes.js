@@ -2,7 +2,8 @@ const express = require('express');
 // rotas
 const routes = express.Router();
 const autenticaController = require('./controllers/autenticaController');
-const principalController = require('./controllers/principalController');
+const professorController = require('./controllers/professorController');
+const orientacaoController = require('./controllers/orientacaoController');
 const authMiddleware = require('./middlewares/auth');
 const guestMiddleware = require('./middlewares/guest');
 
@@ -16,20 +17,30 @@ routes.use((req, res, next) => {
 
 routes.get('/', guestMiddleware, autenticaController.signin);
 routes.get('/signup', guestMiddleware, autenticaController.signup);
-routes.get('/signout', autenticaController.signout);
+routes.get('/signout', autenticaController.logout);
 
 routes.post('/register', autenticaController.register);
 routes.post('/login', autenticaController.login);
+
 // middleware controla acesso pra usuarios logados
 routes.use('/app', authMiddleware);
-routes.get('/app/principal', principalController.index);
+
+routes.get('/app/professores', professorController.index);
+routes.get('/app/professores/create', professorController.create);
+routes.post('/app/professores/new', professorController.new);
+routes.get('/app/professores/delete/:id', professorController.delete);
+
+routes.get('/app/orientacoes', orientacaoController.index);
+routes.get('/app/orientacoes/create', orientacaoController.create);
+routes.post('/app/orientacoes/new', orientacaoController.new);
+routes.get('/app/orientacoes/delete/:id', orientacaoController.delete);
 
 // middleware recebe parte de erro
 routes.use((err, req, res, _next) => {
   // erro vem com status de http
   res.status(err.status || 500);
-
-  return res.render('errors/index', {
+  console.error(err);
+  return res.send({
     message: err.message,
     error: err,
   });

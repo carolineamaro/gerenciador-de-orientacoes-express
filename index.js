@@ -1,11 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
+const mongoose = require('mongoose');
+const requireDir = require('require-dir');
+
 // pacote que determina caminhos sem precisar da /
 const path = require('path');
 // notificações
+
 const session = require('express-session');
 const flash = require('connect-flash');
+const mongoDbConfig = require('./config/database');
+
+mongoose.connect(mongoDbConfig.url);
+requireDir(mongoDbConfig.modelsPath);
+
 const routes = require('./app/routes'); // ponto é a raiz do arquivo diferente dos de cima que sao de terceiros
 
 const sessionConfig = require('./config/session');

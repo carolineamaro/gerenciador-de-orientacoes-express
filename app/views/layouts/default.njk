@@ -1,23 +1,51 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Gerenciamento de Orientações</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Gerenciador de Orientação</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+    main {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/app/professores">Gerenciador</a>
 
-    <link rel="shortcut icon" href="/letter.png" type="image/x-icon" />
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="/dracula.css">
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="professor-drop" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Professor</a>
+            <div class="dropdown-menu" aria-labelledby="professor-drop">
+              <a class="dropdown-item" href="/app/professores">Todos professores</a>
+              <a class="dropdown-item" href="/app/professores/create">Novo professor</a>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            </div>
+          </li>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="orientacao-drop" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Orientação</a>
+            <div class="dropdown-menu" aria-labelledby="orientacao-drop">
+              <a class="dropdown-item" href="/app/orientacoes">Todas orientações</a>
+              <a class="dropdown-item" href="/app/orientacoes/create">Nova orientação</a>
 
-    <script src="/main.js"></script>
-  </head>
-
-  <body>
-    {% include 'partials/flash.njk' %}
-
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main role="main" class="container">
     {% block body%}{% endblock %}
-  </body>
+
+</main>
+</body>
 </html>

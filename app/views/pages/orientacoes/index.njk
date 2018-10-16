@@ -1,0 +1,32 @@
+
+{% extends 'layouts/default.njk' %}
+{% block body %}
+<div class="starter-template">
+
+   {% include 'partials/flash.njk' %}
+    <a class="btn btn-primary" style="float: right; margin-bottom: 10px" href="/app/orientacoes/create" role="button">Adicionar Orientação</a>
+    <h4>Lista de Orientações</h4>
+    <hr />
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Tema</th>
+                <th scope="col">Professor</th>
+                <th scope="col">Aluno</th>
+                <th width="100">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+             {% for orientacao in orientacoes %}
+            <tr>
+                <td>{{orientacao.tema}}</td>
+                <td>{{orientacao.professor.nome}}</td>
+                <td>{{orientacao.aluno}}</td>
+                <td>
+                    <a class="btn btn-danger" href="/app/orientacoes/delete/{{orientacao._id}}" role="button">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

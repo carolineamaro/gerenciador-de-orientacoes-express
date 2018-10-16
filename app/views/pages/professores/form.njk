@@ -1,0 +1,19 @@
+
+{% extends 'layouts/default.njk' %}
+{% block body %}
+<div class="starter-template">
+    <h4>Adicionar Professor</h4>
+    <hr />
+    {% include 'partials/flash.njk' %}
+    <form action="/app/professores/new" method="post">
+        <div class="form-group">
+            <label for="nome">Nome do Professor</label>
+            <input type="text" name="nome" class="form-control" placeholder="Digite o nome do professor"  />
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

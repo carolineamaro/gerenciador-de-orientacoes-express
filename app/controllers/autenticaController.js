@@ -1,5 +1,6 @@
-const bcrypt = require('bcryptjs'); // criptografia
-const { Usuario } = require('../models');
+const mongoose = require('mongoose');
+
+const Usuario = mongoose.model('Usuario');
 
 // rota de login
 module.exports = {
@@ -16,19 +17,17 @@ module.exports = {
     try {
       const { email } = req.body;
 
-      // açao assincrona retorna uma promisse
-      if (await Usuario.findOne({ where: { email } })) {
-        // mensagem de alerta
-        req.flash('error', 'E-mail já cadastrado');
-        return res.redirect('back');
+      if (await Usuario.findOne({ email })) {
+        req.flash('error', 'E-mail já existe!');
+        return res.redirect('/signup');
       }
-      // senha criptograda
-      const senha = await bcrypt.hash(req.body.senha, 5);
 
-      await Usuario.create({ ...req.body, senha });
-
-      req.flash('success', 'Usuario cadastrado com sucesso');
-      return res.redirect('/');
+      const usuario = await Usuario.create(req.body);
+      if (usuario) {
+        req.flash('success', 'Usuario cadastrado com sucesso');
+        return res.redirect('/');
+      }
+      return res.render('autenticar/signup');
     } catch (err) {
       // procura um proximo middleware para executar
       return next(err);
@@ -36,37 +35,34 @@ module.exports = {
   },
 
   async login(req, res, next) {
-    // buscar da requisiçao
     try {
       const { email, senha } = req.body;
-      const usuario = await Usuario.findOne({ where: { email } });
 
-      // se nao retornar um usuario
+      const usuario = await Usuario.findOne({ email });
+
       if (!usuario) {
         req.flash('error', 'Usuario inexistente');
         // return para a execução
         return res.redirect('back');
       }
 
-      // se ele encontrou compara a senha que eu recebo com a que ele digitou
-      if (!(await bcrypt.compare(senha, usuario.senha))) {
+      if (usuario.senha.toString() !== senha.toString()) {
         req.flash('error', 'Senha incorreta');
         return res.redirect('back');
       }
 
-      // salvar na sessao
       req.session.usuario = usuario;
 
       // saber que a sessao terminou de salvar usar callback
       return req.session.save(() => {
-        res.redirect('app/principal');
+        res.redirect('app/professores');
       });
     } catch (err) {
       return next(err);
     }
   },
 
-  signout(req, res) {
+  logout(req, res) {
     // destroi sessao
     return req.session.destroy(() => {
       res.redirect('/');

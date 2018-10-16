@@ -1,11 +1,20 @@
-// model de usuario
-// exports - exportar / require - importar
-// exporta uma funçao
-module.exports = (sequelize, DataTypes) => {
-  const Usuario = sequelize.define('Usuario', {
-    nome: DataTypes.STRING,
-    email: DataTypes.STRING,
-    senha: DataTypes.STRING,
-  });
-  return Usuario;
-};
+const mongoose = require('mongoose');
+
+const UsuarioSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+  },
+  senha: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+mongoose.model('Usuario', UsuarioSchema);
