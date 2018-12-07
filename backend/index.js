@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
-
+const cors = require('cors');
 // pacote que determina caminhos sem precisar da /
 const path = require('path');
 // notificações
@@ -29,7 +29,13 @@ nunjucks.configure(path.resolve('app', 'views'), {
 }); // caminhos
 
 app.set('view engine', 'njk'); // com isso nao precisa indicar a extensao do nunjucks
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 /* app.get('/', (req, res) => {
   res.render('index'); // nodemon atualiza pagina sem precisar rodar toda vez
@@ -40,7 +46,7 @@ app.use(flash());
 
 app.use('/', routes);
 
-app.listen(3000);
+app.listen(3333);
 
 // ORM - faz mapeamento do banco em classes
 // cada tabela é uma classe em js

@@ -1,0 +1,47 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["react", "eslint-plugin-flowtype", "prettier"],
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "rules": {
+    "no-alert": "off",
+    "prettier/prettier": "error",
+    "lines-between-class-members": 0,
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": ["builtin", "external"]
+      }
+    ],
+    "react/jsx-one-expression-per-line": ["off"],
+    "class-methods-use-this": ["off"],
+    "global-require": ["off"],
+    "no-console": ["error"],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "object": false,
+        "array": false
+      }
+    ],
+    "react/destructuring-assignment": ["off"],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "no-nested-ternary": "off",
+    "react/no-did-update-set-state": ["off"]
+  }
+}
